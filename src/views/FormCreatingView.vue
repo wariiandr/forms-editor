@@ -1,13 +1,13 @@
 <template>
     <div>
-        <form-creating />
+        <form-creating-field-list />
     </div>
 </template>
 
 <script>
-import FormCreating from '@/components/FormCreating/FormCreating.vue';
+import FormCreatingFieldList from '@/components/FormCreating/FormCreatingFieldList.vue';
 
 export default {
-    components: { FormCreating }
+    components: { FormCreatingFieldList }
 }
 </script>
