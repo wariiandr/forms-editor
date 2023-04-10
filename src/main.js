@@ -1,7 +1,13 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-
+import components from '@/components/UI/index.js'
 import './index.css';
 
-createApp(App).use(router).mount('#app')
+const app = createApp(App)
+
+components.forEach(component => {
+    app.component(component.name, component)
+})
+
+app.use(router).mount('#app')
