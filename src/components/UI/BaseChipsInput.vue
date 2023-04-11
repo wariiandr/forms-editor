@@ -2,8 +2,9 @@
     <label class="block mr-2" :class="sizeClasses">
         <span class="block text-sm font-medium text-slate-800"> {{ label }} </span>
 
-        <div class="mt-1 px-3 py-2 flex flex-wrap gap-1 bg-white border border-slate-300 rounded-md text-sm shadow-sm">
-            <div class="py-1 px-2 bg-slate-200 rounded-xl inline"
+        <div class="mt-1 px-3 py-2 flex flex-wrap gap-1 bg-white border border-slate-300 rounded-md text-sm shadow-sm"
+            :class="required && !chips.length ? 'border-red-500 text-red-600' : ''">
+            <div class="py-1 px-2 text-xs bg-slate-200 rounded-xl inline"
                 v-for="(chip, idx) in chips"
                 :key="idx">
                 {{ chip }}
@@ -32,6 +33,10 @@ export default {
         },
         sizeClasses: {
             type: String,
+            required: false
+        },
+        required: {
+            type: Boolean,
             required: false
         }
     },

@@ -4,6 +4,7 @@
             v-model="field.input"
             :label="'Input'"
             :options="options"
+            :required="true"
         />
 
         <b-input
@@ -11,6 +12,7 @@
             :sizeClasses="'w-2/6'"
             :label="'Label'"
             :type="'text'"
+            :required="true"
         />
 
         <b-select
@@ -18,20 +20,20 @@
             v-model="field.type"
             :label="'Type'"
             :options="inputTypes"
+            :required="true"
         />
 
         <b-chips-input
             v-if="field.input === 'Select'"
-            v-model="test"
+            v-model="field.options"
             :sizeClasses="'w-3/6'"
             :label="'Options'"
+            :required="true"
         />
     </div>
 </template>
 
 <script>
-import { ref } from 'vue';
-
 export default {
     props: {
         field: {
@@ -42,12 +44,10 @@ export default {
     setup({ field }) {
         const options = [ 'Input', 'Select', 'Checkbox' ];
         const inputTypes = [ 'text', 'number' ];
-        const test = ref(['test', 'asd', 'sdaadsdd']);
 
         return {
             options,
-            inputTypes,
-            test
+            inputTypes
         }
     }
 }

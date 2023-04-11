@@ -9,7 +9,8 @@
             :field="field"
         />
 
-        <button class="block mx-auto text-5xl"
+        <button class="block mx-auto text-5xl disabled:text-slate-400"
+            :disabled="isDisabledAddBtn"
             @click="addNewField()"> 
             + 
         </button>
@@ -17,7 +18,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 import FormCreatingFieldListItem from './FormCreatingFieldListItem.vue';
 
@@ -30,13 +31,29 @@ export default {
             fields.value.push({
                 input: '',
                 label: '',
-                type: ''
+                type: '',
+                options: []
             })
         }
 
+        const isDisabledAddBtn = computed(() => {
+            if (fields.value.length) {
+                const lastField = fields.value[fields.value.length - 1];
+
+                if (lastField.input === 'Input' && lastField.label && lastField.type) return false;
+                if (lastField.input === 'Select' && lastField.label && lastField.options.length) return false;
+                if (lastField.input === 'Checkbox' && lastField.label) return false;
+
+                return true;
+            }
+
+            return false;
+        })
+
         return {
             fields,
-            addNewField
+            addNewField,
+            isDisabledAddBtn
         }
     }
 }
