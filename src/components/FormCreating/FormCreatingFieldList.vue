@@ -1,7 +1,5 @@
 <template>
     <div class="w-6/12">
-        <h2 class="mb-4 text-4xl font-semibold text-slate-900"> Add fields to the form </h2>
-
         <form-creating-field-list-item
             v-for="(field, idx) in fields"
             :key="idx"
@@ -14,6 +12,14 @@
             @click="addNewField()"> 
             + 
         </button>
+
+        <div class="w-full flex justify-end mt-4">
+            <b-button 
+                :text="'SAVE FORM'"
+                :disabled="isDisabledAddBtn"
+                @click="saveForm()"
+            />
+        </div>
     </div>
 </template>
 
@@ -50,10 +56,15 @@ export default {
             return false;
         })
 
+        function saveForm() {
+
+        }
+
         return {
             fields,
             addNewField,
-            isDisabledAddBtn
+            isDisabledAddBtn,
+            saveForm
         }
     }
 }
