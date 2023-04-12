@@ -1,5 +1,5 @@
 <template>
-    <div class="w-6/12">
+    <div>
         <form-creating-field-list-item
             v-for="(field, idx) in form.fields"
             :key="idx"

@@ -1,5 +1,5 @@
 <template>
-    <label class="block mr-2">
+    <label class="block mr-2" :class="sizeAndSpacingClasses">
         <span class="block text-sm font-medium text-slate-800"> {{ label }} </span>
 
         <select
@@ -31,7 +31,7 @@ export default {
     name: 'b-select',
     props: {
         modelValue: {
-            required: true
+            required: false
         },
         label: {
             type: String,
@@ -43,7 +43,7 @@ export default {
         },
         options: {
             type: Array,
-            required: true
+            required: false
         },
         classes: {
             type: String,
@@ -52,7 +52,11 @@ export default {
         required: {
             type: Boolean,
             required: false
-        }
+        },
+        sizeAndSpacingClasses: {
+            type: String,
+            required: false
+        },
     },
     emits: ['update:modelValue'],
 }
