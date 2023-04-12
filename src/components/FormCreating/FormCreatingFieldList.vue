@@ -1,70 +1,41 @@
 <template>
     <div class="w-6/12">
         <form-creating-field-list-item
-            v-for="(field, idx) in fields"
+            v-for="(field, idx) in form.fields"
             :key="idx"
 
             :field="field"
         />
 
         <button class="block mx-auto text-5xl disabled:text-slate-400"
-            :disabled="isDisabledAddBtn"
-            @click="addNewField()"> 
+            :disabled="isFormLastFieldInvalid"
+            @click="addFormNewField()"> 
             + 
         </button>
-
-        <div class="w-full flex justify-end mt-4">
-            <b-button 
-                :text="'SAVE FORM'"
-                :disabled="isDisabledAddBtn"
-                @click="saveForm()"
-            />
-        </div>
     </div>
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { storeToRefs } from 'pinia';
 
 import FormCreatingFieldListItem from './FormCreatingFieldListItem.vue';
+
+import { useFormStore } from '@/store/form.js';
 
 export default {
     components: { FormCreatingFieldListItem },
     setup() {
-        const fields = ref([]);
+        const formStore = useFormStore();
 
-        function addNewField() {
-            fields.value.push({
-                input: '',
-                label: '',
-                type: '',
-                options: []
-            })
-        }
+        const { form, isFormLastFieldInvalid } = storeToRefs(formStore);
 
-        const isDisabledAddBtn = computed(() => {
-            if (fields.value.length) {
-                const lastField = fields.value[fields.value.length - 1];
-
-                if (lastField.input === 'Input' && lastField.label && lastField.type) return false;
-                if (lastField.input === 'Select' && lastField.label && lastField.options.length) return false;
-                if (lastField.input === 'Checkbox' && lastField.label) return false;
-
-                return true;
-            }
-
-            return false;
-        })
-
-        function saveForm() {
-
-        }
+        const { addFormNewField } = formStore;
 
         return {
-            fields,
-            addNewField,
-            isDisabledAddBtn,
-            saveForm
+            formStore,
+            form,
+            isFormLastFieldInvalid,
+            addFormNewField,
         }
     }
 }
