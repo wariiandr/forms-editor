@@ -7,9 +7,9 @@ const routes = [
     component: () => import('../views/FormListView.vue')
   },
   {
-    path: '/creating',
-    name: 'FormCreating',
-    component: () => import('../views/FormCreatingView.vue')
+    path: '/editor/:id',
+    name: 'Editor',
+    component: () => import('../views/EditorView.vue')
   },
 ]
 

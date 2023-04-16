@@ -5,7 +5,7 @@
 
             <b-button 
                 :text="'CREATE NEW FORM'"
-                @click="$router.push('/creating')"
+                @click="$router.push('/editor/new')"
             />
         </div>
 

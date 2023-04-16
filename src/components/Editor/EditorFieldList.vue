@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form-creating-field-list-item
+        <editor-field-list-item
             v-for="(field, idx) in form.fields"
             :key="idx"
 
@@ -18,12 +18,12 @@
 <script>
 import { storeToRefs } from 'pinia';
 
-import FormCreatingFieldListItem from './FormCreatingFieldListItem.vue';
+import EditorFieldListItem from './EditorFieldListItem.vue';
 
 import { useFormStore } from '@/store/form.js';
 
 export default {
-    components: { FormCreatingFieldListItem },
+    components: { EditorFieldListItem },
     setup() {
         const formStore = useFormStore();
 

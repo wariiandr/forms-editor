@@ -4,6 +4,10 @@ import { computed, ref } from 'vue';
 export const useFormStore = defineStore('form', () => {
     const form = ref({ title: '', fields: [], creationDate: '' });
 
+    function setForm(newForm) {
+        form.value = newForm;
+    }
+
     function addFormNewField() {
         form.value.fields.push({
             input: '',
@@ -29,6 +33,7 @@ export const useFormStore = defineStore('form', () => {
     
     return {
         form,
+        setForm,
         addFormNewField,
         isFormLastFieldInvalid,
     }
