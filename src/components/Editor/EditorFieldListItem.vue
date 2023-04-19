@@ -3,7 +3,7 @@
         <b-select
             v-model="field.input"
             :label="'Input'"
-            :options="options"
+            :options="fields"
             :required="true"
         />
 
@@ -33,8 +33,13 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+import Fields from '@/consts/fields';
+import InputTypes from '@/consts/inputTypes';
+
+export default defineComponent({
     props: {
         field: {
             type: Object,
@@ -42,13 +47,11 @@ export default {
         }
     },
     setup({ field }) {
-        const options = [ 'Input', 'Select', 'Checkbox' ];
-        const inputTypes = [ 'text', 'number' ];
 
         return {
-            options,
-            inputTypes
+            fields: Object.values(Fields),
+            inputTypes: Object.values(InputTypes)
         }
     }
-}
+})
 </script>

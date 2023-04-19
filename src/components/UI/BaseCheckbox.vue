@@ -14,10 +14,13 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
     name: 'b-checkbox',
     props: {
         modelValue: {
+            type: Boolean,
             required: false
         },
         label: {
@@ -33,5 +36,5 @@ export default {
             required: false
         },
     }
-}
+})
 </script>

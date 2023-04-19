@@ -19,10 +19,13 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
     name: 'b-input',
     props: {
         modelValue: {
+            type: [String, Number],
             required: false
         },
         label: {
@@ -47,5 +50,5 @@ export default {
         },
     },
     emits: ['update:modelValue'],
-}
+})
 </script>

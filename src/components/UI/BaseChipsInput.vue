@@ -19,13 +19,15 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
     name: 'b-chips-input',
     props: {
         modelValue: {
-            required: false
+            type: Array,
+            required: false,
+            default: () => []
         },
         label: {
             type: String,
@@ -57,5 +59,5 @@ export default {
             chips,
         }
     }
-}
+})
 </script>
