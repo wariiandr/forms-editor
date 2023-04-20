@@ -1,16 +1,17 @@
-interface Field {
-    readonly id: string,
+interface IField {
     label: string,
 }
 
-export default interface Input extends Field {
+interface IInput extends IField {
     type: string,
 }
 
-export default interface Select extends Field {
+interface ISelect extends IField {
     options: string[],
 }
 
-export default interface Checkbox extends Field {
+interface ICheckbox extends IField {
 
 }
+
+export { IInput, ISelect, ICheckbox  }

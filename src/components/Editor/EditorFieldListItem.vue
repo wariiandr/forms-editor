@@ -34,19 +34,30 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, watch } from "vue";
 
 import Fields from '@/consts/fields';
 import InputTypes from '@/consts/inputTypes';
+
+import { useFormStore } from '@/store/form.js';
 
 export default defineComponent({
     props: {
         field: {
             type: Object,
             required: true
+        },
+        fieldIdx: {
+            type: Number,
+            required: true
         }
     },
-    setup({ field }) {
+    setup({ field, fieldIdx }) {
+        const formStore = useFormStore();
+
+        watch(field, (value) => {
+            formStore.addFormFieldTypeProperties({ fieldIdx, fieldType: value.input });
+        })
 
         return {
             fields: Object.values(Fields),

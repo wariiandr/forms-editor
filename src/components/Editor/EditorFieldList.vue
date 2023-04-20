@@ -5,6 +5,7 @@
             :key="idx"
 
             :field="field"
+            :fieldIdx="idx"
         />
 
         <button class="block mx-auto text-5xl disabled:text-slate-400"
