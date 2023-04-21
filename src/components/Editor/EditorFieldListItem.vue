@@ -1,43 +1,21 @@
 <template>
     <div class="my-4 p-4 flex items-center border-slate-700 rounded-xl border-2">
-        <b-select
-            v-model="field.input"
-            :label="'Input'"
-            :options="fields"
-            :required="true"
-        />
-
-        <b-input
-            v-model="field.label"
-            :sizeClasses="'w-2/6'"
-            :label="'Label'"
-            :type="'text'"
-            :required="true"
-        />
-
-        <b-select
-            v-if="field.input === 'Input'"
-            v-model="field.type"
-            :label="'Type'"
-            :options="inputTypes"
-            :required="true"
-        />
-
-        <b-chips-input
-            v-if="field.input === 'Select'"
-            v-model="field.options"
-            :sizeClasses="'w-3/6'"
-            :label="'Options'"
-            :required="true"
+        <component v-for="(input, idx) in fieldInputs" 
+            :key="idx" 
+            :is="`b-${input.component}`" 
+            v-model="field[input.value]"
+            v-bind="input.params"
         />
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, watch } from "vue";
+import { defineComponent, ref, watch } from "vue";
+import type { Ref } from 'vue'
 
 import Fields from '@/consts/fields';
 import InputTypes from '@/consts/inputTypes';
+import { IFieldInput, IFieldsTypePropertiesInputs } from '@/lib/interfaces/fieldsTypePropertiesInputs';
 
 import { useFormStore } from '@/store/form.js';
 
@@ -53,15 +31,29 @@ export default defineComponent({
         }
     },
     setup({ field, fieldIdx }) {
+        let fieldInputs: Ref<IFieldInput[]> = ref([
+            { component: 'select', value: 'input', params: { label: 'Input', options: Object.values(Fields), required: true } },
+            { component: 'input', value: 'label', params: { sizeAndSpacingClasses: 'w-2/6', label: 'Label', type: 'text', required: true } },
+        ]);
+
+        const fieldsTypePropertiesInputs: IFieldsTypePropertiesInputs = {
+            [Fields.Input]: [ { component: 'select', value: 'type', params: { label: 'Type', options: Object.values(InputTypes), required: true } } ],
+            [Fields.Select]: [ { component: 'chips-input', value: 'options', params: { sizeAndSpacingClasses: 'w-3/6', label: 'Options', required: true } } ],
+        };
+
+
         const formStore = useFormStore();
 
         watch(field, (value) => {
             formStore.addFormFieldTypeProperties({ fieldIdx, fieldType: value.input });
+
+            if (value.input !== Fields.Checkbox) {
+                fieldInputs.value = [ ...fieldInputs.value, ...fieldsTypePropertiesInputs[value.input] ];
+            }
         })
 
         return {
-            fields: Object.values(Fields),
-            inputTypes: Object.values(InputTypes)
+            fieldInputs
         }
     }
 })
